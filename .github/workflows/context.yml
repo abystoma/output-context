@@ -1,32 +1,20 @@
-name: Contexts Example with Log Files
+name: Contexts Example with Same Matrix
 
 on:
   push:
 
 
 jobs:
-  job1:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-    outputs:
-      example_output: "Hello, world!"
     steps:
     - name: Show runner OS
       run: echo "The runner operating system is ${{ runner.os }}"
-  
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-    - name: Use needs context
-      run: echo "Output from job1 is ${{ needs.job1.outputs.example_output }}"
       
     - name: Use strategy context
       run: |
         echo "The index of the current job in the matrix is ${{ strategy.job-index }}"
         echo "The total number of jobs in the matrix is ${{ strategy.job-total }}"
-        
-    - name: Generate unique log file
-      run: echo "This is log data" > log_${{ strategy.job-index }}.txt
