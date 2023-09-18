@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       custom_message:
-        description: 'Enter a custom message'
+        description: 'Enter a custom message:'
         required: true
 
 jobs:
