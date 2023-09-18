@@ -2,8 +2,7 @@ name: Contexts Example
 
 on:
   push:
-    branches:
-      - main
+
 
 jobs:
   job1:
