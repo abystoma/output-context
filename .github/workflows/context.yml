@@ -1,35 +1,17 @@
-name: Contexts Example with Same Matrix and Inputs
+name: Calculate Average and Output
 
 on:
-  workflow_dispatch:
-    inputs:
-      custom_message:
-        description: 'Enter a custom message:'
-        required: true
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    outputs:
-      example_output: "This is an example output."
-    steps:
-    - name: Show runner OS
-      run: echo "The runner operating system is ${{ runner.os }}"
-      
-    - name: Use strategy context
-      run: |
-        echo "The index of the current job in the matrix is ${{ strategy.job-index }}"
-        echo "The total number of jobs in the matrix is ${{ strategy.job-total }}"
-        
-    - name: Use input context
-      run: echo "The custom message is ${{ github.event.inputs.custom_message }}"
-  
-  deploy:
-    needs: build
+  calculate_average:
     runs-on: ubuntu-latest
+    outputs:
+      average: ${{steps.set_reading_score.outputs.reading }}+ {{steps.set_writing_score.outputs.writing}} / 2
     steps:
-    - name: Use needs context
-      run: echo "Output from build job is ${{ needs.build.outputs.example_output }}"
+    - id: set_reading_score
+      run: echo "reading=80" >> $GITHUB_ENV
+    - id: set_writing_score
+      run: echo "writing=90" >> $GITHUB_ENV
