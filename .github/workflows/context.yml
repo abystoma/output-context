@@ -3,7 +3,7 @@ name: Calculate Average and Output
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   calculate_average:
