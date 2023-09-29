@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Display Runner Details
-      run: echo "The runner name is ${{ runner.name }} and the architecture is ${{ runner.arch }}"
+      run: echo "The runner OS is ${{ runner.os }} and the architecture is ${{ runner.arch }}"
