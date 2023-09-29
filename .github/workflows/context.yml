@@ -1,17 +1,13 @@
-name: Calculate Average and Output
+name: My Workflow
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  calculate_average:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      average: ${{steps.set_reading_score.outputs.reading }}+ {{steps.set_writing_score.outputs.writing}} / 2
     steps:
-    - id: set_reading_score
-      run: echo "reading=80" >> $GITHUB_ENV
-    - id: set_writing_score
-      run: echo "writing=90" >> $GITHUB_ENV
+    - name: Display Runner Details
+      run: echo "The runner name is ${{ runner.name }} and the architecture is ${{ runner.arch }}"
