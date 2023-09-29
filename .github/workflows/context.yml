@@ -1,13 +1,16 @@
-name: My Workflow
+name: Contexts Example
 
 on:
   push:
-    branches:
-      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - name: Display Runner Details
-      run: echo "The runner OS is ${{ runner.os }} and the architecture is ${{ runner.arch }}"
+    - name: Display Matrix Information
+      run: |
+        echo "The index of the current job in the matrix is ${{ strategy.job-index }}"
+        echo "The total number of jobs in the matrix is ${{ strategy.job-total }}"
